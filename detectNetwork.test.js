@@ -145,9 +145,32 @@ describe('Discover', function() {
   it('has a prefix of 6011 and a length of 16', function() {
     detectNetwork('6011789456123698').should.equal('Discover');
   });
+
   it('has a prefix of 6011 and a length of 19', function() {
     detectNetwork('6011222222222222229').should.equal('Discover');
   });
+
+  it('has a prefix of 65 and a length of 16', function() {
+    detectNetwork('6511222222222229').should.equal('Discover');
+  });
+
+  it('has a prefix of 65 and a length of 19', function() {
+    detectNetwork('6511222222222222229').should.equal('Discover');
+  });
+
+  for (var prefix = 644; prefix <= 649; prefix++) {
+    (function(prefix) { 
+      it('has a prefix of ' + prefix + ' and a length of 16', function() {
+        detectNetwork(prefix + '1234567890123').should.equal('Discover');
+      });
+
+      it('has a prefix of ' + prefix + ' and a length of 19', function() {
+        detectNetwork(prefix + '1234567890123456').should.equal('Discover');
+      });
+
+    })(prefix) //immediately invoked (IIFE)
+  }
+
 });
 
 describe('Maestro', function() {
