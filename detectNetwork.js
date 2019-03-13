@@ -22,11 +22,12 @@ var detectNetwork = function(cardNumber) {
       //American Express:
         //if first two indeces [0][1] === 34 || 37 && cardNumber.length === 15
           //return 'American Express'
-  // var cardNumber = cardNumber.split('');
+
   var prefix = cardNumber.slice(0, 2);
   var prefixOneDig = cardNumber.slice(0, 1);
   var prefixFourDig = cardNumber.slice(0, 4);
   var prefixThreeDig = cardNumber.slice(0, 3);
+  var prefixSixDig = cardNumber.slice(0, 6);
   var cardLength = cardNumber.length;
 
   if((prefix === '38' || prefix === '39') && cardLength === 14) {
@@ -35,9 +36,9 @@ var detectNetwork = function(cardNumber) {
   } else if((prefix === '34' || prefix === '37') && cardLength === 15) {
   	return 'American Express';
 
-  } else if((prefixOneDig === '4') && ([13, 16, 19].includes(cardLength))) {
+  }	else if((prefixOneDig === '4') && ([13, 16, 19].includes(cardLength))) {
   	return 'Visa';
-
+  
   } else if((['51', '52', '53', '54', '55'].includes(prefix)) && cardLength === 16) {
   	return 'MasterCard';
   
@@ -46,5 +47,17 @@ var detectNetwork = function(cardNumber) {
   
   }	else if((['5018', '5020', '5038', '6304'].includes(prefixFourDig)) && (cardLength > 11 && cardLength < 20)) {
   	return 'Maestro';
+
+  } else if(((parseInt(prefixThreeDig) > 623 && parseInt(prefixThreeDig) < 627) ||
+  				 (parseInt(prefixSixDig) > 622125 && parseInt(prefixSixDig) < 622926) ||
+  				 (parseInt(prefixFourDig) > 6281 && parseInt(prefixFourDig) < 6289))  && 
+                 (cardLength > 15 && cardLength < 20)) {
+  	return 'China UnionPay';
+  
+  } else if(((['4903', '4905', '4911', '4936', '6333', '6759'].includes(prefixFourDig)) ||
+  						                (['564182', '633110'].includes(prefixSixDig))) && 
+  						 (cardLength === 16 || cardLength === 18 || cardLength === 20)) {
+  	return 'Switch';
+
   }
 };
