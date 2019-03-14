@@ -202,7 +202,7 @@ describe('Maestro', function() {
 
 });
 
-xdescribe('China UnionPay', function() {
+describe('China UnionPay', function() {
   //China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
   // Write full test coverage for the Maestro card
   var should = chai.should();
@@ -218,7 +218,7 @@ xdescribe('China UnionPay', function() {
       });
 
       it('has a prefix of ' + prefix + ' and a length of 18', function() {
-        detectNetwork(prefix + '123456789012345').should.equal('China UnionPay');ß
+        detectNetwork(prefix + '123456789012345').should.equal('China UnionPay');
       });
 
       it('has a prefix of ' + prefix + ' and a length of 19', function() {
@@ -280,9 +280,9 @@ describe('Switch', function() {
   var prefixes = [4903, 4905, 4911, 4936, 6333, 6759];
   var prefixesSix = [564182, 633110];
 
-  for (var prefix = 0; prefix <= prefixes.length; prefix++) {
+  for (var prefix = 0; prefix < prefixes.length; prefix++) {
     (function(prefix) { 
-      // console.log(prefixes[prefix]);
+      
       it('has a prefix of ' + prefixes[prefix] + ' and a length of 16', function() {
         detectNetwork(prefixes[prefix] + '123456789012').should.equal('Switch');
       });
@@ -292,14 +292,13 @@ describe('Switch', function() {
       });
 
       it('has a prefix of ' + prefixes[prefix] + ' and a length of 19', function() {
-        console.log(prefi)
         detectNetwork(prefixes[prefix] + '123456789012345').should.equal('Switch');
       });
 
     })(prefix) //immediately invoked (IIFE)
   }
-  
-  for (var j = 0; j <= prefixesSix.length; j++) {
+
+  for (var j = 0; j < prefixesSix.length; j++) {
     (function(j) { 
       it('has a prefix of ' + prefixesSix[j] + ' and a length of 16', function() {
         detectNetwork(prefixesSix[j] + '1234567890').should.equal('Switch');
@@ -310,6 +309,7 @@ describe('Switch', function() {
       });
 
       it('has a prefix of ' + prefixesSix[j] + ' and a length of 19', function() {
+        console.log(prefixesSix[j]);
         detectNetwork(prefixesSix[j] + '1234567890123').should.equal('Switch');
       });
 

@@ -32,32 +32,32 @@ var detectNetwork = function(cardNumber) {
 
   if((prefix === '38' || prefix === '39') && cardLength === 14) {
   	return `Diner's Club`;
-
-  } else if((prefix === '34' || prefix === '37') && cardLength === 15) {
+  }
+  if((prefix === '34' || prefix === '37') && cardLength === 15) {
   	return 'American Express';
-
-  }	else if((prefixOneDig === '4') && ([13, 16, 19].includes(cardLength))) {
-  	return 'Visa';
-  
-  } else if((['51', '52', '53', '54', '55'].includes(prefix)) && cardLength === 16) {
+  }
+  if(((['4903', '4905', '4911', '4936', '6333', '6759'].includes(prefixFourDig)) ||
+  						                (['564182', '633110'].includes(prefixSixDig))) && 
+  						 (cardLength === 16 || cardLength === 18 || cardLength === 19)) {
+  	return 'Switch';
+  }
+  if((['51', '52', '53', '54', '55'].includes(prefix)) && cardLength === 16) {
   	return 'MasterCard';
-  
-  } else if((prefixFourDig === '6011' || (parseInt(prefixThreeDig) > 643 && parseInt(prefixThreeDig) < 650) || prefix === '65') && [16, 19].includes(cardLength)) {
+  } 
+  if((prefixFourDig === '6011' || (parseInt(prefixThreeDig) > 643 && parseInt(prefixThreeDig) < 650) || prefix === '65') && [16, 19].includes(cardLength)) {
   	return 'Discover';
-  
-  }	else if((['5018', '5020', '5038', '6304'].includes(prefixFourDig)) && (cardLength > 11 && cardLength < 20)) {
+  }
+  if((['5018', '5020', '5038', '6304'].includes(prefixFourDig)) && (cardLength > 11 && cardLength < 20)) {
   	return 'Maestro';
-
-  } else if(((parseInt(prefixThreeDig) > 623 && parseInt(prefixThreeDig) < 627) ||
+  } 
+  if(((parseInt(prefixThreeDig) > 623 && parseInt(prefixThreeDig) < 627) ||
   				 (parseInt(prefixSixDig) > 622125 && parseInt(prefixSixDig) < 622926) ||
   				 (parseInt(prefixFourDig) > 6281 && parseInt(prefixFourDig) < 6289))  && 
                  (cardLength > 15 && cardLength < 20)) {
   	return 'China UnionPay';
-  
-  } else if(((['4903', '4905', '4911', '4936', '6333', '6759'].includes(prefixFourDig)) ||
-  						                (['564182', '633110'].includes(prefixSixDig))) && 
-  						 (cardLength === 16 || cardLength === 18 || cardLength === 20)) {
-  	return 'Switch';
-
-  }
+  } 
+    if((prefixOneDig === '4') && ([13, 16, 19].includes(cardLength))) {
+  	return 'Visa';
+  } 
+  	return 'Card Not Found';
 };
